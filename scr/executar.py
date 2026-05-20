@@ -51,7 +51,6 @@ def executar_uma_rodada(
             estrutura_causal=config.modelo_real["formula"]
         )
 
-
         dados_ranked = dados_brutos.rank()
         dados_ranked_pad = pd.DataFrame(data=padronizacao(dados_ranked), columns=dados_ranked.columns)
 

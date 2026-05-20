@@ -30,7 +30,7 @@ def rodar_simulacao(config: ConfiguracaoSimulacao):
     except NameError:
         base_dir = os.getcwd()
 
-    output_dir = os.path.join(base_dir, "..", "resultados", config.modelo_real["Caso"])
+    output_dir = os.path.join(base_dir, "..", "dados", "resultados", config.modelo_real["Caso"])
     os.makedirs(output_dir, exist_ok=True)
 
     lista_variaveis = config.modelo_real["lista_variaveis"]
@@ -118,7 +118,7 @@ def rodar_simulacao(config: ConfiguracaoSimulacao):
 
                     
                     chave = f"{causa}->{efeito}"
-                    dicionario_arestas[chave] = {"mean_est":mean_est, "ci_lo":ci_lo, "ci_hi":ci_hi, "power":power}
+                    dicionario_arestas[chave] = {"mean_est":mean_est, "ci_lo":ci_lo, "ci_hi":ci_hi, "power":power, "estimates":list(estimates.values)}
 
                     if modelo in dicionario_final.keys():
                         print(f"    {chave}: Mean={mean_est:.4f} [{ci_lo:.4f}, {ci_hi:.4f}] | Power={power}")
@@ -186,15 +186,13 @@ if __name__ == "__main__":
     tol_rmsea=0.08)"""
 
     CONFIG = ConfiguracaoSimulacao(
-    n_sims=10,
-    noises=["F"],
-    vetor_R=[50],
-    vetor_vertices=[1000],
-    modelos_grafos=["watts_strogatz"],
-    modelo_real=get_caso_real_3(),
-    modelos_candidatos=get_modelos_candidatosABC(),
+    n_sims=1000,
+    noises=["uniform"],
+    vetor_R=[50, 100, 150, 200],
+    vetor_vertices=[100, 200, 500, 1000],
+    modelos_grafos=["barabasi_albert", "watts_strogatz", "geometric"],
+    modelo_real=get_caso_real_1(),
+    modelos_candidatos=get_modelos_candidatosAB(),
     tol_rmsea=0.08)
-
-
 
     rodar_simulacao(CONFIG)

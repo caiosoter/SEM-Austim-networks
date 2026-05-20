@@ -243,7 +243,6 @@ def gerar_dados_AB(num_vertices, R, tipo_ruido, modelo_gerador, estrutura_causal
             eigen_B[j] = get_largest_eigenvalue_ba(num_vertices, power_B[j], m)
 
     elif modelo_gerador == "geometric":
-        
         for j in range(R):
             eigen_A[j] = get_largest_eigenvalue_ge(num_vertices, raio=logit_A[j])
             eigen_B[j] = get_largest_eigenvalue_ge(num_vertices, raio=logit_B[j])
